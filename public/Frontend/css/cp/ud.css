@@ -1,0 +1,76 @@
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: #f8f9fa;
+}
+.navbar-nav .nav-link:hover {
+    color: #fff;
+}
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-5px);
+}
+.card-body {
+    background-color: #fff;
+    transition: background-color 0.3s ease;
+    border: 1px solid #dee2e6;
+    padding: 20px;
+}
+.card-title {
+    color: #343a40;
+    margin-bottom: 10px;
+}
+.form-label {
+    color: #343a40;
+}
+.btn-outline-eo {
+color: #128C7E;  
+border-color: #128C7E;  
+}
+
+.btn-outline-eo:hover {
+color: white;  
+background-color: #128C7E;  
+border-color: #128C7E;  
+}
+
+.btn-outline-eo:focus, .btn-outline-eo.focus {
+box-shadow: 0 0 0 0.2rem rgba(18, 140, 126, 0.5);  
+}
+
+.btn-outline-eo.active, .btn-outline-eo:active, .btn-outline-eo.show, .btn-outline-eo.dropdown-toggle {
+color: white;  
+background-color: #25D366; 
+border-color: #25D366; 
+}
+
+.btn-outline-eo.active:focus, .btn-outline-eo.active.focus,
+.btn-outline-eo:active:focus, .btn-outline-eo:active.focus,
+.btn-outline-eo.show:focus, .btn-outline-eo.show.focus,
+.btn-outline-eo.dropdown-toggle:focus {
+box-shadow: 0 0 0 0.2rem rgba(37, 211, 102, 0.5);  
+}
+.navbar {
+    background: linear-gradient(to right, #25D366, #128C7E);
+}
+
+
+ @media (max-width: 767px) {
+    .navbar-nav {
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        text-align: center;
+    }
+
+    .nav-item {
+        margin-left: 20px;
+    }
+}

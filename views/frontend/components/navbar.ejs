@@ -1,0 +1,25 @@
+<!-- views/components/navbar -->
+<nav class="nav bd-container">
+    <a href="/" class="nav__logo">
+        <img src="Frontend/img/EO.png" alt="Logo" class="nav__logo-image"> EASY ORDER APP
+    </a>
+
+    <div class="nav__menu" id="nav-menu">
+        <ul class="nav__list">
+            <li class="nav__item"><a href="#menu" class="nav__link">المينيو</a></li>
+            <li class="nav__item"><a href="#services" class="nav__link">خدماتنا</a></li>
+            <li class="nav__item"><a href="#about" class="nav__link">مين احنا</a></li>
+            <li class="nav__item"><a href="#home" class="nav__link active-link">الرئيسية</a></li>
+        </ul>
+    </div>
+
+    <div class="nav__toggle" id="nav-toggle">
+        <i class='bx bx-menu'></i>
+    </div>
+
+    <!-- Shopping Cart -->
+    <a href="/cart" class="shopping-cart-icon" id="shopping-cart-icon">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count" id="cart-count"><%= cartCount %></span>
+    </a>
+</nav>

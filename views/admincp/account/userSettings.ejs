@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إعدادات المستخدم</title>
+
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts for Arabic styling -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/Frontend/css/cp/ud.css">
+    <link rel="icon" href="/Frontend/eo.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-end">
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admincp/dashboard?token=<%= token %>"><i class="fas fa-arrow-right"></i> رجوع</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admincp/phonenumber?token=<%= token %>"><i class="fab fa-whatsapp"></i> رقم الـ Whatsapp</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main container -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">أدخل البيانات الجديدة</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="/admincp/userSettings/update?token=<%= token %>" method="POST">
+                            <!-- Current Password Field -->
+                            <div class="mb-3">
+                                <label for="currentPassword" class="form-label">كلمة المرور الحالية:</label>
+                                <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
+                            </div>
+                            <!-- New Email Field -->
+                            <div class="mb-3">
+                                <label for="email" class="form-label">البريد الإلكتروني الجديد:</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <!-- New Password Field -->
+                            <div class="mb-3">
+                                <label for="password" class="form-label">كلمة المرور الجديدة:</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-outline-eo">حفظ</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- Error Alert -->
+                <% if (error) { %>
+                    <div class="alert alert-danger mt-3" role="alert">
+                        <%= error %>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

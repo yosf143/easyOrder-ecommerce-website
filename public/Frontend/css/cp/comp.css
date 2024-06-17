@@ -1,0 +1,105 @@
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: #f8f9fa;
+}
+.navbar-nav .nav-link:hover {
+    color: #fff;
+}
+.navbar {
+    background: linear-gradient(to right, #25D366, #128C7E);
+}
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+.card-link .card:hover .card-body {
+    background-color: #004aad42;
+}
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-5px);
+}
+.card-body {
+    background-color: #fff;
+    transition: background-color 0.3s ease;
+    border: 1px solid #dee2e6;
+}
+.card-title {
+    color: #212529; 
+    margin-bottom: 10px;
+}
+.container {
+    padding-top: 50px;
+    padding-bottom: 50px; 
+}
+.alert {
+    font-size: 14px;
+}
+::-webkit-scrollbar {
+width: 8px; 
+}
+
+::-webkit-scrollbar-track {
+background: #f1f1f1;  
+}
+
+
+::-webkit-scrollbar-thumb {
+background: #343a40;  
+}
+
+::-webkit-scrollbar-thumb:hover {
+background: #212529; 
+}
+
+
+.btn-outline-eo {
+    color: #128C7E;  
+    border-color: #128C7E;  
+}
+
+.btn-outline-eo:hover {
+    color: white;  
+    background-color: #128C7E;  
+    border-color: #128C7E;  
+}
+
+.btn-outline-eo:focus, .btn-outline-eo.focus {
+    box-shadow: 0 0 0 0.2rem rgba(18, 140, 126, 0.5);  
+}
+
+.btn-outline-eo.active, .btn-outline-eo:active, .btn-outline-eo.show, .btn-outline-eo.dropdown-toggle {
+    color: white;  
+    background-color: #25D366; 
+    border-color: #25D366; 
+}
+
+.btn-outline-eo.active:focus, .btn-outline-eo.active.focus,
+.btn-outline-eo:active:focus, .btn-outline-eo:active.focus,
+.btn-outline-eo.show:focus, .btn-outline-eo.show.focus,
+.btn-outline-eo.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(37, 211, 102, 0.5);  
+}
+@media (max-width: 767px) {
+    .navbar-nav {
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        text-align: center;
+    }
+
+    .nav-item {
+        margin-left: 20px;
+    }
+    .col {
+        flex: 0 0 100%; 
+        max-width: 100%;
+        margin-bottom: 15px;
+    }
+}

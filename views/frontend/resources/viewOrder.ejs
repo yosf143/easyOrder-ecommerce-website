@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>فاتورة مشتريات</title>
+    <link rel="icon" href="Frontend/eo.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/Frontend/css/inv.css">
+</head>
+<body>
+    <div id="invoice">
+        <% if (errorMessage) { %>
+            <div class="invoice-header-info error">
+                <%= errorMessage %>
+            </div>
+        <% } else if (invoiceData) { %>
+            <div class="invoice-header-info">
+                <header>
+                    <img src="/Frontend/img/EO.png" alt="Logo">
+                </header>
+                <h1>طلبية <%= invoiceId %>#</h1>
+                <div>
+                    <strong>الاسم:</strong> <span><%= invoiceData.clientName %></span>
+                </div>
+                <div>
+                    <strong>العنوان:</strong> <span><%= invoiceData.clientAddress %></span>
+                </div>
+                <div>
+                    <strong>تاريخ الطلب:</strong> <span><%= invoiceData.creationDateTime %></span>
+                </div>
+                <div>
+                    <strong>حالة الدفع:</strong> <span><%= invoiceData.paymentStatus %></span>
+                </div>
+                <div>
+                    <strong>المبلغ شامل الخصم:</strong> <span><%= invoiceData.totalDue %></span>
+                </div>
+            </div>
+            <div class="invoice-items">
+                <% invoiceData.cartItems.forEach(item => { %>
+                    <div class="invoice-item">
+                        <img src="<%= item.imageSrc %>" alt="<%= item.detail %>">
+                        <div>
+                            <p><strong>التفاصيل:</strong> <%= item.detail %></p>
+                            <p><strong>الحجم:</strong> <%= item.size %></p>
+                            <p><strong>الكمية:</strong> <%= item.quantity %></p>
+                            <p><strong>السعر:</strong> <%= item.price %></p>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+            <div class="payment-options">
+                <div class="payment-option" onclick="document.getElementById('paypalForm').submit();">
+                    <form id="paypalForm" action="/paypal/<%= invoiceId %>" method="POST">
+                        <input type="hidden" name="totalDue" value="<%= invoiceData.totalDue %>">
+                    </form>
+                    <span>الدفع بواسطة PayPal | Credit Card</span>
+                    <img src="/Frontend/img/paypal.png" alt="PayPal">
+                    <img src="/Frontend/img/mc.png" alt="MasterCard">
+                    <img src="/Frontend/img/visa.png" alt="Visa">
+                </div>
+                 
+                <% if (invoiceData.paymentStatus !== 'دفع عند الإستلام') { %>
+                    <div class="payment-option" onclick="document.getElementById('payOnDeliveryForm').submit();">
+                        <form id="payOnDeliveryForm" action="/pay-on-delivery" method="POST">
+                            <input type="hidden" name="invoiceId" value="<%= invoiceId %>">
+                        </form>
+                        <span>الدفع عند الإستلام</span>
+                        <img src="/Frontend/img/cod.png" alt="Pay on Delivery">
+                    </div>
+                <% } %>
+            </div>
+            <div id="note">
+                مبلغ الطلبية لا يشمل خدمة اللتوصيل, يتم إضافة تكلفة التوصيل بعد تجهيز الطلب.
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>

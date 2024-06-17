@@ -1,0 +1,163 @@
+body {
+  font-family: "Cairo", sans-serif;
+  background-color: #f8f9fa;
+}
+.navbar {
+  background: linear-gradient(to right, #25D366, #128C7E);
+}
+.navbar-nav .nav-link:hover {
+  color: #fff;
+}
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-body {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ced4da;
+}
+.form-label {
+  color: #343a40;
+}
+.form-control {
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+}
+.form-control:focus {
+  border-color: #004aad;
+  box-shadow: 0 0 0 0.2rem rgba(0, 74, 173, 0.25);
+}
+.btn-primary {
+  background-color: #004aad;
+  border-color: #004aad;
+}
+.btn-primary:hover {
+  background-color: #003e93;
+  border-color: #00367d;
+}
+.container {
+  margin-top: 50px;
+}
+.size-checkbox {
+  display: none;
+}
+.size-checkbox + label {
+  display: inline-block;
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.size-checkbox:checked + label {
+  background-color: #128C7E;
+  color: #fff;
+}
+.size-price {
+  display: inline-block;
+  width: 100px;  
+  margin-left: 10px;
+  height: 30px;
+}
+::-webkit-scrollbar {
+width: 8px; 
+}
+
+::-webkit-scrollbar-track {
+background: #f1f1f1;  
+}
+
+
+::-webkit-scrollbar-thumb {
+background: #343a40;  
+}
+
+::-webkit-scrollbar-thumb:hover {
+background: #212529; 
+}
+
+.btn-outline-eo {
+ color: #128C7E;  
+border-color: #128C7E;  
+}
+
+.btn-outline-eo:hover {
+color: white;  
+background-color: #128C7E;  
+border-color: #128C7E;  
+}
+
+.btn-outline-eo:focus, .btn-outline-eo.focus {
+box-shadow: 0 0 0 0.2rem rgba(18, 140, 126, 0.5);  
+}
+
+.btn-outline-eo.active, .btn-outline-eo:active, .btn-outline-eo.show, .btn-outline-eo.dropdown-toggle {
+color: white;  
+background-color: #25D366; 
+border-color: #25D366; 
+}
+
+.btn-outline-eo.active:focus, .btn-outline-eo.active.focus,
+.btn-outline-eo:active:focus, .btn-outline-eo:active.focus,
+.btn-outline-eo.show:focus, .btn-outline-eo.show.focus,
+.btn-outline-eo.dropdown-toggle:focus {
+box-shadow: 0 0 0 0.2rem rgba(37, 211, 102, 0.5);  
+}
+
+
+
+/*actions*/
+@media (min-width: 768px) {
+#actionDetails {
+    width: 70%;
+}
+#actionDate {
+    width: 30%;
+}
+}
+.pagination {
+justify-content: center;
+}
+.alert {
+font-size: 14px;
+}
+/*navfix*/
+@media (max-width: 767px) {
+.navbar-nav {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    text-align: center;
+}
+.size-checkbox + label {
+  width: 120px;
+  margin-bottom: 10px;
+}
+.size-price {
+  display: block;
+  font-size: small;
+  width: calc(120px - 25px); 
+  margin: 0 auto; 
+}
+
+.nav-item {
+    margin-left: 20px;
+}
+.col {
+    flex: 0 0 100%; 
+    max-width: 100%;
+    margin-bottom: 15px;
+}
+}

@@ -1,0 +1,82 @@
+ <!--
+███████╗ █████╗ ███████╗██╗   ██╗     ██████╗ ██████╗ ██████╗ ███████╗██████╗      █████╗ ██████╗ ██████╗ 
+██╔════╝██╔══██╗██╔════╝╚██╗ ██╔╝    ██╔═══██╗██╔══██╗██╔══██╗██╔════╝██╔══██╗    ██╔══██╗██╔══██╗██╔══██╗
+█████╗  ███████║███████╗ ╚████╔╝     ██║   ██║██████╔╝██║  ██║█████╗  ██████╔╝    ███████║██████╔╝██████╔╝
+██╔══╝  ██╔══██║╚════██║  ╚██╔╝      ██║   ██║██╔══██╗██║  ██║██╔══╝  ██╔══██╗    ██╔══██║██╔═══╝ ██╔═══╝ 
+███████╗██║  ██║███████║   ██║       ╚██████╔╝██║  ██║██████╔╝███████╗██║  ██║    ██║  ██║██║     ██║     
+╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝        ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝    ╚═╝  ╚═╝╚═╝     ╚═╝     
+                                                                                                          
+Caught you peeking! 👀 Enjoy, and watch out for bugs :)
+   
+ -->
+ 
+  <!-- views/frontend/index -->
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+     <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css' rel='stylesheet'>
+     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+     <link rel="stylesheet" href="/Frontend/css/style.css">
+     <link rel="stylesheet" href="/Frontend/css/menu.css">
+
+     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+     <title>easyOrder App</title>
+     <link rel="icon" href="/Frontend/eo.ico" type="image/x-icon">
+ </head>
+ <body>
+ 
+ <a href="#" class="scrolltop" id="scroll-top">
+     <i class="fas fa-chevron-up scrolltop__icon"></i>
+ </a>
+ 
+ <%- include('components/navbar') %>
+ <%- include('components/home') %>
+ <%- include('components/about') %>
+ <%- include('components/services') %>
+ <%- include('components/menu') %>
+<div id="helperModal" class="modal modalhelper fade">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div dir="rtl" class="modal-body">
+        <p>يمكنك تحريك صور المنتج يمين/يسار لعرض باقي الصور إن وجد.</p>
+        <img src="Frontend/img/helper.png" alt="How To" />
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<style>
+    .modalhelper {
+        z-index: 9999;
+    }
+</style>
+
+  
+ <%- include('components/footer') %>
+ 
+ 
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+ <script src="https://unpkg.com/scrollreveal"></script>
+ <script src="Frontend/js/UI.js"></script>
+ <script src="Frontend/js/eo.js"></script>
+ 
+ <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+ <script>
+    var swiper = new Swiper('.swiper-container', {
+        loop: true,
+        slidesPerView: 1,
+        spaceBetween: 30,
+    });
+</script>
+ 
+ 
+ </body>
+ </html>
+ 

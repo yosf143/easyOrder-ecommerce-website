@@ -1,0 +1,56 @@
+<!-- views/frontend/404 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/Frontend/css/style.css">
+
+    <title>الصفحة غير موجودة 404</title>
+    <link rel="icon" href="Frontend/eo.ico" type="image/x-icon">
+</head>
+<body>
+
+
+    <main class="l-main">
+        <!--========== HOME ==========-->
+        <section class="home" id="home">
+            <div class="home__container bd-container bd-grid">
+                <div class="home__data">
+                    <h1 class="home__title">إيرور 404</h1>
+                    <h2 class="home__subtitle">المبرمج قرر إنه ما يعمل ديزان لهاي الصفحة :)</h2>
+                    <a href="/" class="button">الموقع الرئيسي</a>
+                </div>
+
+                <img src="/Frontend/img/EO.png" alt="" class="home__img" style="width: 240px; height: 240px;">
+
+            </div>
+        </section>
+
+      
+        <!--========== FOOTER ==========-->
+        <footer class="footer section bd-container">
+            <div class="footer__container bd-grid">
+            </div>
+
+            <p class="footer__copy">&#169; easyOrder | Made with  <i class="fa-solid fa-heart"></i>  by yosf.143</p>
+        </footer>
+
+
+        <!--========== JS ==========-->
+		 <script src="https://unpkg.com/scrollreveal"></script>
+		
+		
+		<script>
+			const sr = ScrollReveal({
+				origin: 'bottom',
+				distance: '30px',
+				duration: 1500,
+				reset: true
+			});
+			
+			sr.reveal(`.home__data, .home__img, .footer`);
+		</script>
+</body>
+</html>

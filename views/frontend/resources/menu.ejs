@@ -1,0 +1,148 @@
+<!--frontend/index/menu-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Frontend/css/style.css">
+    <link rel="stylesheet" href="Frontend/css/menu.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <title>easyOrder App</title>
+    <link rel="icon" href="Frontend/eo.ico" type="image/x-icon">
+</head>
+
+<body>
+<a href="#" class="scrolltop" id="scroll-top">
+    <i class="fas fa-chevron-up scrolltop__icon"></i>
+</a>
+<nav class="nav bd-container">
+    <a href="/" class="nav__logo">
+        <img src="Frontend/img/EO.png" alt="Logo" class="nav__logo-image"> EASY ORDER APP
+    </a>
+    <div class="nav__toggle" id="nav-toggle">
+        <i class='bx bx-menu'></i>
+    </div>
+<a href="/cart" class="shopping-cart-icon" id="shopping-cart-icon">
+    <i class="fas fa-shopping-cart"></i>
+    <span class="cart-count" id="cart-count"><%= cartCount %></span>
+</a>
+</nav>
+<section class="menu section bd-container" id="menu">
+    <span class="section-subtitle">المينو</span>
+    <h2 class="section-title">المينيو الرئيسي للمتجر</h2>
+     
+    <div id="menuCategories" class="menu-categories">
+        <% if (menuItems && menuItems.length > 0) { %>
+            <button class="menu-category-button" data-category="show-all">عرض الكل</button>
+            <% const categories = [...new Set(menuItems.map(item => item.category))]; %>
+            <% categories.forEach(category => { %>
+                <button class="menu-category-button" data-category="<%= category %>"><%= category %></button>
+            <% }); %>
+        <% } else { %>
+            <div style="color: red; text-align: center;">
+                <p>لا توجد منتجات للعرض</p>
+            </div>
+        <% } %>
+    </div>
+     
+  
+    <div class="menu__container bd-grid">
+        <% if (menuItems && menuItems.length > 0) { %>
+            <% menuItems.forEach(item => { %>
+                <div class="menu__content <%= item.soldOut ? 'sold-out' : '' %>" id="menu-item-<%= item._id %>">
+                    <div class="menu__img-container">
+                        <% if (item.imageSrc.length > 1) { %>
+                            <div class="swiper-container menu-swiper" id="swiper-<%= item._id %>">
+                                <div class="swiper-wrapper">
+                                    <% item.imageSrc.forEach(image => { %>
+                                        <div class="swiper-slide">
+                                            <img src="<%= image.url %>" alt="" class="menu__img" id="image-<%= image.uuid %>">
+                                        </div>
+                                    <% }); %>
+                                </div>
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        <% } else if (item.imageSrc.length === 1) { %>
+                            <img src="<%= item.imageSrc[0].url %>" alt="" class="menu__img" id="image-<%= item.imageSrc[0].uuid %>">
+                        <% } %>
+                    </div>
+           
+                    <h3 class="menu__name"><%= item.category %></h3>
+                    <span class="menu__detail"><%= item.name %></span>
+             
+                    <% if (item.sizes && item.sizes.length > 0) { %>
+                        <% const firstSizePrice = parseFloat(item.sizes[0].price).toFixed(2); %>
+                        <span class="menu__price">₪<%= firstSizePrice %></span>
+                        <div class="menu__sizes">
+                            <% item.sizes.forEach((size, index) => { %>
+                                <input type="radio" id="<%= item._id %>-size-<%= index %>" name="<%= item._id %>-size" value="<%= size.name %>" data-price="<%= parseFloat(size.price).toFixed(2) %>">
+                                <label for="<%= item._id %>-size-<%= index %>"><%= size.name %></label>
+                            <% }); %>
+                        </div>
+                    <% } else { %>
+                        <% const itemPrice = parseFloat(item.price).toFixed(2); %>
+                        <span class="menu__price">₪<%= itemPrice %></span>
+                    <% } %>
+                 
+                    <% if (!item.soldOut) { %>
+                        <a href="#" class="button menu__button" onclick="addToCart('<%= JSON.stringify(item) %>', this)">
+                            <i class="fas fa-cart-plus"></i> إضافة للسلة
+                        </a>
+                    <% } else { %>
+                        <div class="sold-out-overlay">
+                            <span class="sold-out-text">نفذت الكمية</span>
+                        </div>
+                    <% } %>
+                </div>
+            <% }); %>
+        <% } %>
+    </div>
+</section>
+
+<script>
+    
+</script>
+
+<div id="helperModal" class="modal modalhelper fade">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div dir="rtl" class="modal-body">
+          <p>يمكنك تحريك صور المنتج يمين أو يسار لرؤية المزيد من الصور.</p>
+          <img src="Frontend/img/helper.png" alt="How To" />
+        </div>
+      </div>
+    </div>
+  </div>
+   
+  <style>
+      .modalhelper {
+          z-index: 9999;
+      }
+  </style>
+<%- include('../components/footer') %>
+
+ 
+ 
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://unpkg.com/scrollreveal"></script>
+<script src="Frontend/js/eo.js"></script>
+<script>
+    var swiper = new Swiper('.menu-swiper', {
+        loop: true,
+        clickable: true,
+        slidesPerView: 1,
+        spaceBetween: 30,
+    });
+ 
+</script>
+
+</body>
+</html>

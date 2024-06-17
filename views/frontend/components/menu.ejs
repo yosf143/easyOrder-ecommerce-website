@@ -1,0 +1,68 @@
+<section class="menu section bd-container" id="menu">
+    <span class="section-subtitle">المينو</span>
+    <h2 class="section-title">المينيو الرئيسي للمتجر</h2>
+    <div id="menuCategories" class="menu-categories">
+        <% if (menuItems && menuItems.length > 0) { %>
+            <button class="menu-category-button" data-category="show-all">عرض الكل</button>
+            <% const categories = [...new Set(menuItems.map(item => item.category))]; %>
+            <% categories.forEach(category => { %>
+                <button class="menu-category-button" data-category="<%= category %>"><%= category %></button>
+            <% }); %>
+        <% } else { %>
+            <div style="color: red; text-align: center;">
+                <p>لا توجد منتجات للعرض</p>
+            </div>
+        <% } %>
+    </div>
+    <div class="menu__container bd-grid">
+        <% if (menuItems && menuItems.length > 0) { %>
+            <% menuItems.slice(0, 6).forEach(item => { %>
+                <div class="menu__content <%= item.soldOut ? 'sold-out' : '' %>" id="menu-item-<%= item._id %>">
+                    <% if (item.imageSrc.length > 1) { %>
+                        <div class="swiper-container menu-swiper">
+                            <div class="swiper-wrapper">
+                                <% item.imageSrc.forEach(image => { %>
+                                    <div class="swiper-slide">
+                                        <img src="<%= image.url %>" alt="" class="menu__img" id="image-<%= image.uuid %>">
+                                    </div>
+                                <% }); %>
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    <% } else if (item.imageSrc.length === 1) { %>
+                        <img src="<%= item.imageSrc[0].url %>" alt="" class="menu__img" id="image-<%= item.imageSrc[0].uuid %>">
+                    <% } %>
+                    <h3 class="menu__name"><%= item.category %></h3>
+                    <span class="menu__detail"><%= item.name %></span>
+
+                    <% if (item.sizes && item.sizes.length > 0) { %>
+                        <% const firstSizePrice = parseFloat(item.sizes[0].price).toFixed(2); %>
+                        <span class="menu__price">₪<%= firstSizePrice %></span>
+                        <div class="menu__sizes">
+                            <% item.sizes.forEach((size, index) => { %>
+                                <input type="radio" id="<%= item._id %>-size-<%= index %>" name="<%= item._id %>-size" value="<%= size.name %>" data-price="<%= parseFloat(size.price).toFixed(2) %>">
+                                <label for="<%= item._id %>-size-<%= index %>"><%= size.name %></label>
+                            <% }); %>
+                        </div>
+                    <% } else { %>
+                        <% const itemPrice = parseFloat(item.price).toFixed(2); %>
+                        <span class="menu__price">₪<%= itemPrice %></span>
+                    <% } %>
+                    <% if (!item.soldOut) { %>
+                        <a href="#" class="button menu__button" onclick="addToCart('<%= JSON.stringify(item) %>', this)">
+                            <i class="fas fa-cart-plus"></i> إضافة للسلة
+                        </a>
+                    <% } else { %>
+                        <div class="sold-out-overlay">
+                            <span class="sold-out-text">نفذت الكمية</span>
+                        </div>
+                    <% } %>
+                </div>
+            <% }); %>
+        <% } %>
+    </div>
+    
+    <div class="menu-category-container">
+        <a href="/menu" class="button menu-category-button">عرض المزيد</a>
+    </div>
+</section>

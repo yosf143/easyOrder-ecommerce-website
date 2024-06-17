@@ -1,0 +1,143 @@
+body {
+    font-family: 'Cairo', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+#invoice {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+#invoice header {
+    text-align: center;
+}
+#invoice header img {
+    max-width: 120px;
+}
+.invoice-header-info {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.invoice-header-info h1 {
+    margin: 0 0 10px;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+}
+.invoice-header-info div {
+    margin: 10px 0;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+.invoice-header-info strong {
+    color: #555;
+}
+.invoice-header-info span {
+    display: block;
+    font-size: 16px;
+    color: #777;
+    margin-right: 5px;
+}
+.invoice-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.invoice-item {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}
+.invoice-item p {
+    margin: 5px 0;
+    flex: 1;
+}
+.invoice-item img {
+    max-width: 100px;
+    height: auto;
+    margin-left: 20px;
+    border-radius: 5px;
+}
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+.payment-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    transition: background-color 0.3s, border-color 0.3s, transform 0.3s;
+    text-decoration: none;
+    cursor: pointer;
+}
+.payment-option:hover {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+    transform: translateY(-2px);
+}
+.payment-option img {
+    width: 50px;
+    height: auto;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+.payment-option span {
+    flex: 1;
+    font-size: 16px;
+    color: #333;
+    text-align: right;
+}
+.error {
+    color: red;
+}
+
+#note {
+    text-align: center;
+    background-color: #ffecb3;
+    padding: 15px;
+    margin-top: 20px;
+    color: #101010;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+}
+@media screen and (max-width: 600px) {
+    #invoice {
+        padding: 10px;
+    }
+    .invoice-header-info h1 {
+        font-size: 20px;
+    }
+    .invoice-header-info span {
+        font-size: 14px;
+    }
+    .invoice-item img {
+        max-width: 80px;
+    }
+    .payment-options {
+        flex-direction: column;
+        gap: 10px;
+    }
+    #note {
+        font-size: 14px;
+    }
+}

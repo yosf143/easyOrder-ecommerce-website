@@ -1,0 +1,122 @@
+<!-- views/frontend/cart -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Frontend/css/style.css">
+    <title>easyOrder App</title>
+    <link rel="icon" href="Frontend/eo.ico" type="image/x-icon">
+</head>
+<body>
+    <a href="#" class="scrolltop" id="scroll-top">
+        <i class='fas fa-chevron-up scrolltop__icon'></i>
+    </a>
+
+    <nav class="nav bd-container">
+        <a href="#sendorder" class="nav__checkout">أرسل الطلب</a>
+        <a href="/menu" class="nav__checkout"><i class='fas fa-shopping-cart'></i> متابعة التسوق</a>
+        <span class="nav__totaldue">المجموع: <span id="totalDue">0.00</span></span>
+        
+       
+    </nav>
+ 
+    <section class="cart section bd-container">
+        <h1 class="section-title">سلة المشتريات</h1>
+        <div class="cart__container bd-grid">
+            <% cartItems.forEach(item => { %>
+            <div class="cart__item" id="menu-item-<%= item._id %>-<%= item.activeImage.uuid %>">
+                <img src="<%= item.activeImage.url %>" alt="Item Image" class="cart__item-image"> 
+                <div class="cart__item-details">
+                    <p class="cart__item-category"><%= item.category %></p>
+                    <p class="cart__item-name"><%= item.name %></p>
+                    <% if (item.selectedSize && item.selectedSizePrice) { %>
+                    <p class="cart__item-size"><%= item.selectedSize %> | <%= item.selectedSizePrice %></p>
+                    <% } %>
+                    <div class="cart__item-quantity">
+                        <div class="quantity-buttons">
+                            <i class='fas fa-plus increase' onclick="updateQuantity('<%= item._id %>', '<%= item.name %>', '<%= item.selectedSize %>', '<%= item.activeImage.uuid %>', true)"></i>
+                            <p><%= item.quantity %></p>
+                            <i class='fas fa-minus decrease' onclick="updateQuantity('<%= item._id %>', '<%= item.name %>', '<%= item.selectedSize %>', '<%= item.activeImage.uuid %>', false)"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    </section>
+
+    
+<section id="sendorder" class="send-order section bd-container">
+    <h2 class="section-title">إرسال الطلب</h2>
+    <div class="form-options">
+        <a id="revealCouponBtn" class="coupon">لديك كوبون؟</a>
+        <input type="checkbox" id="pickupCheckbox" onchange="toggleAddressField()" style="display: none;"> 
+        <label for="pickupCheckbox" class="checkbox-label">إستلام من المتجر</label>
+    </div>
+
+    <% if (error) { %>
+        <p id="err" class="error-message"><%= error %></p>
+    <% } %>
+ 
+    
+    <form class="send-order__form" id="sendOrderForm" method="POST" action="/sendOrder">
+        <div class="form-group">
+            <input type="text" id="clientName" placeholder="الإسم الكامل" name="clientName" required>
+        </div>
+        <div class="form-group">
+            <input type="text" id="clientAddress" placeholder="العنوان بشكل تفصيلي" name="clientAddress" required>
+        </div>
+        <div class="form-group">
+            <input type="text" id="couponCode" placeholder="أدخل كود الكوبون" name="couponCode">
+        </div>
+        <input type="hidden" id="cartItems" name="cartItems">
+        <input type="hidden" id="totalDueInput" name="totalDue">
+        <button type="submit" class="button send-order__button">
+            <i class='fas fa-share'></i> إرسال الطلب
+        </button>
+        <a href="/policy" class="policy1">
+            <span for="policyCheckbox" class="policy2"> أوافق على شروط و سياسة المتجر.</span>
+            <input type="checkbox" id="policyCheckbox" required>
+        </a> 
+    </form>
+</section>
+
+
+
+<footer class="footer section2 bd-container">
+    <div class="footer__container bd-grid">
+    </div>
+
+    <p class="footer__copy">&#169; easyOrder | Made with  <i class="fa-solid fa-heart"></i>  by yosf.143</p>
+</footer>
+ 
+<script>
+     const policyCheckbox = document.getElementById("policyCheckbox");
+
+function validateCheckbox() {
+    policyCheckbox.setCustomValidity(policyCheckbox.checked ? '' : 'الرجاء الموافقة على الشروط والسياسة للمتابعة.');
+}
+
+policyCheckbox.addEventListener('change', validateCheckbox);
+validateCheckbox();
+
+ 
+const errorMessage = document.getElementById("err");
+if (errorMessage) {
+
+    const sendOrderSection = document.getElementById("sendorder");
+    if (sendOrderSection) {
+        sendOrderSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+}
+</script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="Frontend/js/eo2.js"></script>
+
+ 
+
+</body>
+</html>

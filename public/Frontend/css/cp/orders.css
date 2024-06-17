@@ -1,0 +1,164 @@
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: #f8f9fa;
+}
+.navbar-nav .nav-link:hover {
+    color: #fff;
+}
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+.card-link .card:hover .card-body {
+        background-color: #004aad42;
+    }
+
+.card-title {
+    color: #212529;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;  
+}
+
+.card-title input[type="checkbox"] {
+    margin-left: 10px;  
+}
+
+    .card {
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    .card-body {
+        background-color: #fff;
+        transition: background-color 0.3s ease;
+        border: 1px solid #dee2e6;
+    }
+    .card-title {
+        color: #212529; 
+        margin-bottom: 10px;
+    }
+    .navbar {
+        background: linear-gradient(to right, #25D366, #128C7E);
+    }
+    .dropdown-item:focus {
+        background-color: #198754;
+    }
+
+    .search-field {
+        flex: 1;
+        margin-right: 15px;
+        max-width: 200px;
+    }
+
+    .cstyle {
+        min-width: 120px;
+    }
+
+    .cbadge {
+    margin: 15px;
+    height: 22px;
+    background: linear-gradient(to right, #3c444ce8, #33383d);
+    }
+    @media (max-width: 767.98px) {
+        .card-columns {
+            column-count: 2; 
+        }
+    }
+    .search-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .invoice-checkbox {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #adb5bd;
+        border-radius: 4px; 
+        outline: none;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .invoice-checkbox:checked {
+        background-color: #004badaf;
+        border-color: #072a5787;
+    }
+
+    .invoice-checkbox:focus {
+        box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.5); 
+    }
+
+
+    .invoice-checkbox:checked::after {
+        content: '\f00c'; 
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900; 
+        font-size: 16px; 
+        color: #fff;
+        position: absolute;
+        top: 50%; 
+        left: 50%;
+        transform: translate(-50%, -50%); 
+    }
+
+    @media (max-width: 575.98px) {
+        .search-container {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .search-field {
+            margin-bottom: 10px;
+        }
+    }
+
+    .alert {
+        transition: opacity 0.5s ease-in-out;
+    }
+    
+    .alert.hidden {
+        opacity: 0;
+    }
+    ::-webkit-scrollbar {
+    width: 8px; 
+}
+ 
+::-webkit-scrollbar-track {
+    background: #f1f1f1;  
+}
+
+ 
+::-webkit-scrollbar-thumb {
+    background: #343a40;  
+}
+ 
+::-webkit-scrollbar-thumb:hover {
+    background: #212529; 
+}
+/*navfix*/
+@media (max-width: 767px) {
+    .navbar-nav {
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        text-align: center;
+    }
+  
+    .nav-item {
+        margin-left: 20px;
+    }
+    .col {
+        flex: 0 0 100%; 
+        max-width: 100%;
+        margin-bottom: 15px;
+    }
+  }

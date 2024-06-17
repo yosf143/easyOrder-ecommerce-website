@@ -1,0 +1,135 @@
+<!--addItem-->
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>إضافة منتج جديد</title>
+ 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/Frontend/css/cp/mi1.css" />
+  <link rel="icon" href="/Frontend/eo.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <div class="d-flex justify-content-end">
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/admincp/menuitems?token=<%= token %>"><i class="fas fa-arrow-right"></i> رجوع</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <% if (errorMessage) { %>
+          <div class="alert alert-danger" role="alert">
+            <%= errorMessage %>
+          </div>
+        <% } %>
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">إضافة منتج جديد</h5>
+          </div>
+          <div class="card-body">
+            <form action="/admincp/menuitems/add?token=<%= token %>" method="POST" onsubmit="return validateForm()" enctype="multipart/form-data" accept-charset="UTF-8">
+              <div class="mb-3">
+                <label for="category" class="form-label">المجموعة</label>
+                <select class="form-select" id="category" name="category" required>
+                  <% categories.forEach(category => { %>
+                    <option value="<%= category.name %>"><%= category.name %></option>
+                  <% }); %>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="name" class="form-label">إسم المنتج</label>
+                <input type="text" class="form-control" id="name" name="name" required />
+              </div>
+              <div class="mb-3 d-flex flex-column">
+                <label class="form-label">الأحجام</label><br />
+                <% sizes.forEach(size => { %>
+                  <div class="form-check">
+                    <input class="form-check-input size-checkbox" type="checkbox" id="<%= size.name %>" name="sizes[]" value="<%= size.name %>" />
+                    <label class="form-check-label" for="<%= size.name %>"><%= size.name %></label>
+                    <input type="text" class="form-control size-price" id="<%= size.name %>-price" name="sizePrice[<%= encodeURIComponent(size.name) %>]" placeholder="سعر الحجم" pattern="[0-9]+(?:\.[0-9]+)?" title="يرجى إدخال أرقام فقط" style="display: none" />
+                  </div>
+                <% }); %>
+              </div>
+              <div class="mb-3">
+                <label for="image" class="form-label">إختر صورة (PNG, JPG, JPEG)</label>
+                <input type="file" class="form-control" id="image" name="images" accept=".png, .jpg, .jpeg" multiple required />
+              </div>
+              <button type="submit" class="btn btn-outline-eo">إضافة</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for validation alert -->
+  <div class="modal fade" id="validationModal" tabindex="-1" aria-labelledby="validationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="validationModalLabel">تحذير</h5>
+        
+        </div>
+        <div class="modal-body">
+          يرجى إدخال سعر واحد على الأقل لأحد الأحجام.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">إغلاق</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+   
+    const sizeCheckboxes = document.querySelectorAll(".size-checkbox");
+    sizeCheckboxes.forEach((checkbox) => {
+      checkbox.addEventListener("change", function () {
+        const sizePriceInput = document.getElementById(this.id + "-price");
+        if (this.checked) {
+          sizePriceInput.style.display = "inline-block";
+        } else {
+          sizePriceInput.style.display = "none";
+          sizePriceInput.value = "";
+        }
+      });
+    });
+
+    function validateForm() {
+      const sizePrices = document.querySelectorAll(".size-price");
+      let atLeastOnePrice = false;
+
+      sizePrices.forEach(input => {
+        if (input.style.display !== "none" && input.value.trim() !== "") {
+          atLeastOnePrice = true;
+        }
+      });
+
+      if (!atLeastOnePrice) {
+        // Show Bootstrap modal
+        const validationModal = new bootstrap.Modal(document.getElementById('validationModal'));
+        validationModal.show();
+        return false; // Prevent form submission
+      }
+      document.querySelector('form button[type="submit"]').disabled = true;
+      return true; 
+    }
+  </script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المنتجات</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/Frontend/eo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/Frontend/css/cp/mi2.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-end">
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admincp/dashboard?token=<%= token %>"><i class="fas fa-arrow-right"></i> رجوع</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mt-3">
+        <div class="text-end add-item-search-container">
+            <a href="/admincp/menuitems/add?token=<%= token %>" class="btn btn-outline-eo add-item-button"><i class="fas fa-plus"></i> إضافة منتج</a>
+            <input type="text" id="searchInput" class="form-control search-field" placeholder="إبحث عن منتج...">
+        </div>
+        <hr class="my-4">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3" id="menuItemsContainer">
+            <% menuItems.forEach((item, index) => { %>
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <% if (item.imageSrc.length > 1) { %>
+                        <div id="carousel_<%= item._id %>" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <% item.imageSrc.forEach((image, i) => { %>
+                                <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+                                    <img src="/<%= image.url %>" class="d-block ImgSize" alt="<%= item.name %> Image <%= i + 1 %>">
+                                </div>
+                                <% }); %>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel_<%= item._id %>" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carousel_<%= item._id %>" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                        <% } else { %>
+                        <img src="/<%= item.imageSrc[0].url %>" class="card-img-top ImgSize" alt="<%= item.name %>">
+                        <% } %>
+                        <div class="card-body">
+                            <h5 class="card-title"><%= item.name %></h5>
+                            <p class="card-text"><strong>المجموعة:</strong> <%= item.category %></p>
+                            <% item.sizes.forEach(size => { %>
+                            <p class="card-text"><strong>الحجم:</strong> <%= size.name %>, <strong>السعر:</strong> <%= size.price %></p>
+                            <% }); %>
+                            <div class="d-flex gap-2 mt-3">
+                                <form id="deleteForm_<%= item._id %>" action="/admincp/menuitems/delete/<%= item._id %>?token=<%= token %>" method="POST">
+                                    <button type="button" class="btn btn-sm btn-outline-danger btn-action" onclick="deleteMenuItem('<%= item._id %>')"> <i class="fas fa-trash-alt"></i> حذف</button>
+                                </form>
+    
+                                <a href="/admincp/menuitems/edit/<%= item._id %>?token=<%= token %>" class="btn btn-sm btn-outline-success">
+                                    <i class="fas fa-edit"></i> تعديل
+                                </a>
+                                <% if (!item.soldOut) { %>
+                                <form id="markAsSoldOutForm_<%= item._id %>" action="/admincp/menuitems/soldout/<%= item._id %>?token=<%= token %>" method="POST">
+                                    <button type="button" class="btn btn-sm btn-outline-dark btn-action" onclick="markAsSoldOut('<%= item._id %>')"> <i class="fas fa-check"></i> مباع</button>
+                                </form>
+                                <% } else { %>
+                                <form id="markAsAvailableForm_<%= item._id %>" action="/admincp/menuitems/available/<%= item._id %>?token=<%= token %>" method="POST">
+                                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="markAsAvailable('<%= item._id %>')">
+                                        <i class="fas fa-rotate-left"></i> استرجاع
+                                      </button>
+                                </form>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function deleteMenuItem(id) {
+            var deleteForm = document.getElementById("deleteForm_" + id);
+            if (deleteForm) {
+                deleteForm.submit();
+            } else {
+                console.error("Error deleting item with id:", id);
+            }
+        }
+    
+        function markAsSoldOut(id) {
+            var markAsSoldOutForm = document.getElementById("markAsSoldOutForm_" + id);
+            if (markAsSoldOutForm) {
+                markAsSoldOutForm.submit();
+            } else {
+                console.error("Error marking item as sold out with id:", id);
+            }
+        }
+
+        function markAsAvailable(id) {
+            var markAsAvailableForm = document.getElementById("markAsAvailableForm_" + id);
+            if (markAsAvailableForm) {
+                markAsAvailableForm.submit();
+            } else {
+                console.error("Error marking item as sold out with id:", id);
+            }
+        }
+    
+        function filterMenuItems() {
+            var input, filter, cards, card, title, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            cards = document.getElementById("menuItemsContainer").getElementsByClassName("col");
+    
+            for (i = 0; i < cards.length; i++) {
+                card = cards[i];
+                title = card.getElementsByClassName("card-title")[0];
+                txtValue = title.textContent || title.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    
+        document.getElementById("searchInput").addEventListener("input", filterMenuItems);
+    </script>
+    
+</body>
+</html>
